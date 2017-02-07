@@ -2,21 +2,21 @@ package main;
 
 public class Main{
 
-    /*  Доступные арифмитические операции  */
+    /*  Р”РѕСЃС‚СѓРїРЅС‹Рµ Р°СЂРёС„РјРёС‚РёС‡РµСЃРєРёРµ РѕРїРµСЂР°С†РёРё  */
     private static final String OPERATORS = "+-*/^";
 
     public static void main(String args[]){
 
         String source = "100^(1/2) + 2^2*5";
-        System.out.println("Исходное выражение (инфиксная нотация):  " + source);
+        System.out.println("РСЃС…РѕРґРЅРѕРµ РІС‹СЂР°Р¶РµРЅРёРµ (РёРЅС„РёРєСЃРЅР°СЏ РЅРѕС‚Р°С†РёСЏ):  " + source);
 
         Postfix postfix = new Postfix(source, OPERATORS);
         String OPN = postfix.inPostfix();
-        System.out.println("Постфиксная нотация:  " + OPN);
+        System.out.println("РџРѕСЃС‚С„РёРєСЃРЅР°СЏ РЅРѕС‚Р°С†РёСЏ:  " + OPN);
 
         Calculation calc = new Calculation(OPN, OPERATORS);
         double result = calc.value();
-        if (result == (int)result)  System.out.println("Результат вычисления в постфиксной нотации:  " + (int)result);
-        else System.out.println("Результат вычисления в постфиксной нотации:  " + result);
+        if (result == (int)result)  System.out.println("Р РµР·СѓР»СЊС‚Р°С‚ РІС‹С‡РёСЃР»РµРЅРёСЏ РІ РїРѕСЃС‚С„РёРєСЃРЅРѕР№ РЅРѕС‚Р°С†РёРё:  " + (int)result);
+        else System.out.println("Р РµР·СѓР»СЊС‚Р°С‚ РІС‹С‡РёСЃР»РµРЅРёСЏ РІ РїРѕСЃС‚С„РёРєСЃРЅРѕР№ РЅРѕС‚Р°С†РёРё:  " + result);
     }
 }

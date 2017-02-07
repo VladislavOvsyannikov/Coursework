@@ -13,7 +13,7 @@ public class Calculation {
         this.OPERATORS=OPERATORS;
     }
 
-    /*  Вычисляем выражение в обратной польской нотации, используя стек  */
+    /*  Р’С‹С‡РёСЃР»СЏРµРј РІС‹СЂР°Р¶РµРЅРёРµ РІ РѕР±СЂР°С‚РЅРѕР№ РїРѕР»СЊСЃРєРѕР№ РЅРѕС‚Р°С†РёРё, РёСЃРїРѕР»СЊР·СѓСЏ СЃС‚РµРє  */
     public double value(){
         String[] arr = str.split(" ");
         for (int i=0; i<arr.length; i++){
