@@ -7,7 +7,7 @@ public class Postfix {
 
     private String OPERATORS;
     private Stack<String> stackOperations = new Stack<>();
-    private Stack<String> stackPostfix = new Stack<>();
+    private String OPN="";
     private String source;
 
     public Postfix(String source, String OPERATORS){
@@ -30,37 +30,29 @@ public class Postfix {
         while (tokens.hasMoreTokens()){
             String token = tokens.nextToken();
             if (isDigit(token)) {
-                stackPostfix.push(token);
-                stackPostfix.push(" ");
+                OPN = OPN + token + " ";
             }
             if (token.equals("(")){
                 stackOperations.push(token);
             }
             if (token.equals(")")){
                 while(!stackOperations.peek().equals("(")){
-                    stackPostfix.push(stackOperations.pop());
-                    stackPostfix.push(" ");
+                    OPN = OPN + stackOperations.pop() + " ";
                 }
                 stackOperations.pop();
             }
             if (OPERATORS.contains(token)){
                 while (!stackOperations.isEmpty()&&rank(stackOperations.peek())>=rank(token)) {
-                    stackPostfix.push(stackOperations.pop());
-                    stackPostfix.push(" ");
+                    OPN = OPN + stackOperations.pop() + " ";
                 }
                 stackOperations.push(token);
             }
         }
         while(!stackOperations.isEmpty()) {
-            stackPostfix.push(stackOperations.pop());
-            stackPostfix.push(" ");
+            OPN = OPN + stackOperations.pop() + " ";
         }
 
-        String str="";
-        while (!stackPostfix.isEmpty()){
-            str = stackPostfix.pop()+str;
-        }
-        return str;
+        return OPN;
     }
 
     private boolean isDigit(String token){
