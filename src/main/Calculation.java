@@ -1,47 +1,60 @@
 package main;
 
-import java.util.Stack;
+import javax.swing.*;
 
 public class Calculation {
 
-    private String OPERATORS;
-    private String str;
-    private Stack<String> stack = new Stack<>();
+    /*  Доступные арифмитические операции  */
+    private static final String OPERATORS = "+-*/^";
 
-    public Calculation(String str, String OPERATORS){
-        this.str=str;
-        this.OPERATORS=OPERATORS;
-    }
+    public static void main(String[] args) {
 
-    /*  Вычисляем выражение в обратной польской нотации, используя стек  */
-    public double value(){
-        String[] arr = str.split(" ");
-        for (int i=0; i<arr.length; i++){
-            if (isDigit(arr[i])){
-                stack.push(arr[i]);
-            }else{
-                Double a = new Double(stack.pop());
-                Double b = new Double(stack.pop());
-                Double c = s(arr[i],b,a);
-                stack.push(Double.toString(c));
-            }
-        }
-        return new Double(stack.pop());
-    }
+        JFrame frame = new JFrame("Calculation");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100, 100, 390, 250);
+        frame.setResizable(false);
+        frame.setVisible(true);
 
-    private boolean isDigit(String token){
-        if (!OPERATORS.contains(token)) return true;
-        return false;
-    }
+        JLabel lb = new JLabel("Input expression:");
+        lb.setBounds(40,10,100,20);
+        JTextField tf = new JTextField(30);
+        tf.setBounds(40,30,300,25);
+        JButton button = new JButton("Convert and calculate");
+        button.setBounds(100,60,170,25);
+        JLabel lb1 = new JLabel("OPN:");
+        lb1.setBounds(40,90,100,20);
+        JTextField tf1 = new JTextField(30);
+        tf1.setBounds(40,110,300,25);
+        JLabel lb2 = new JLabel("Result:");
+        lb2.setBounds(40,140,100,20);
+        JTextField tf2 = new JTextField(30);
+        tf2.setBounds(40,160,150,25);
+        tf1.setEditable(false);
+        tf2.setEditable(false);
 
-    private double s(String str, double b, double a){
-        switch (str) {
-            case "^" : return Math.pow(b,a);
-            case "*" : return b*a;
-            case "/" : return b/a;
-            case "+" : return b+a;
-            case "-" : return b-a;
-        }
-        return 0;
+        JPanel panel = new JPanel();
+        frame.add(panel);
+        panel.setLayout(null);
+
+        panel.add(lb);
+        panel.add(tf);
+        panel.add(button);
+        panel.add(lb1);
+        panel.add(tf1);
+        panel.add(lb2);
+        panel.add(tf2);
+
+        button.addActionListener(e -> {
+            String source = tf.getText();
+
+            ToPostfix postfix = new ToPostfix(source, OPERATORS);
+            String OPN = postfix.toPostfix();
+            tf1.setText(OPN);
+
+            Calculate calc = new Calculate(OPN, OPERATORS);
+            double result = calc.value();
+            if (result == (int)result)  tf2.setText(Integer.toString((int)result));
+            else tf2.setText(Double.toString(result));
+        });
     }
 }

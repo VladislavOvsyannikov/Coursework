@@ -3,19 +3,19 @@ package main;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-public class Postfix {
+public class ToPostfix {
 
     private String OPERATORS;
     private Stack<String> stackOperations = new Stack<>();
     private String OPN="";
     private String source;
 
-    public Postfix(String source, String OPERATORS){
+    public ToPostfix(String source, String OPERATORS){
         this.source=source;
         this.OPERATORS = OPERATORS;
     }
 
-    public String inPostfix(){
+    public String toPostfix(){
 
         /** Убираем пробелы в исходном выражении и устраняем проблему со знаком минус:
          *  минус может выступать не только как бинарный оператор,
